@@ -1,0 +1,5 @@
+#!/bin/bash
+
+git add .
+git commit -m " doing the task 0x09 all the pytthon is object"
+git push origin
