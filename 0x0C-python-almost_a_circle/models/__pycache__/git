@@ -1,0 +1,5 @@
+git add .
+
+git commit -m " doing the taks for the __pycache__"
+
+git push origin 
