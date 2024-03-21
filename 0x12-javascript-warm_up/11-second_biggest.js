@@ -1,6 +1,6 @@
 #!/usr/bin/node
 
-function secondBiggest(arr) {
+function secondBiggest (arr) {
   if (arr.length <= 2) {
     return 0;
   }
