@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 
-// Check if the correct number of arguments is provided
 if (process.argv.length !== 5) {
   console.error('Usage: ./102-concat.js fileA fileB fileC');
   process.exit(1);
@@ -10,14 +9,16 @@ if (process.argv.length !== 5) {
 
 const [, , fileA, fileB, fileC] = process.argv;
 
-// Read the contents of fileA and fileB
-const contentA = fs.readFileSync(fileA, 'utf8').trim(); // Trim any leading/trailing whitespace
-const contentB = fs.readFileSync(fileB, 'utf8').trim(); // Trim any leading/trailing whitespace
+try {
+  const contentA = fs.readFileSync(fileA, 'utf8').trim();
+  const contentB = fs.readFileSync(fileB, 'utf8').trim();
 
-// Concatenate the contents
-const concatenatedContent = `${contentA}\n${contentB}`;
+  const concatenatedContent = `${contentA}\n${contentB}`;
 
-// Write the concatenated content to fileC
-fs.writeFileSync(fileC, concatenatedContent);
+  fs.writeFileSync(fileC, concatenatedContent);
 
-console.log(`Concatenated ${fileA} and ${fileB} into ${fileC}`);
+  console.log(`Concatenated ${fileA} and ${fileB} into ${fileC}`);
+} catch (error) {
+  console.error('Error:', error.message);
+  process.exit(1);
+}
