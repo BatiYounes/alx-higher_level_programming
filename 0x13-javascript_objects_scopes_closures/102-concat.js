@@ -11,11 +11,11 @@ if (process.argv.length !== 5) {
 const [, , fileA, fileB, fileC] = process.argv;
 
 // Read the contents of fileA and fileB
-const contentA = fs.readFileSync(fileA, 'utf8');
-const contentB = fs.readFileSync(fileB, 'utf8');
+const contentA = fs.readFileSync(fileA, 'utf8').trim(); // Trim any leading/trailing whitespace
+const contentB = fs.readFileSync(fileB, 'utf8').trim(); // Trim any leading/trailing whitespace
 
 // Concatenate the contents
-const concatenatedContent = contentA + '\n' + contentB;
+const concatenatedContent = `${contentA}\n${contentB}`;
 
 // Write the concatenated content to fileC
 fs.writeFileSync(fileC, concatenatedContent);
