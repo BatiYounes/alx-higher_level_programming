@@ -26,7 +26,7 @@ const apiUrl = `https://swapi-api.alx-tools.com/api/films/${movieId}`;
   }
 })();
 
-function fetchFilmData(url) {
+function fetchFilmData (url) {
   return new Promise((resolve, reject) => {
     request(url, (error, response, body) => {
       if (error || response.statusCode !== 200) {
@@ -38,7 +38,7 @@ function fetchFilmData(url) {
   });
 }
 
-function fetchCharacterData(url) {
+function fetchCharacterData (url) {
   return new Promise((resolve, reject) => {
     request(url, (error, response, body) => {
       if (error || response.statusCode !== 200) {
