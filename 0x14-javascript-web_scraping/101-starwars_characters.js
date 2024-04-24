@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/node
 // Script to fetch and print all character names from a given Star Wars movie using the Star Wars API
 
 const request = require('request');
