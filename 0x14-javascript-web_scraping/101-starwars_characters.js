@@ -12,34 +12,40 @@ if (!movieId || isNaN(movieId)) {
 
 const apiUrl = `https://swapi-api.alx-tools.com/api/films/${movieId}`;
 
-request(apiUrl, (error, response, body) => {
-  if (error) {
-    console.error('Error:', error);
-    return;
-  }
+(async () => {
+  try {
+    const filmData = await fetchFilmData(apiUrl);
+    const charactersUrls = filmData.characters;
 
-  if (response.statusCode !== 200) {
-    console.error('Error:', body);
-    return;
-  }
-
-  const filmData = JSON.parse(body);
-  const charactersUrls = filmData.characters;
-
-  charactersUrls.forEach(url => {
-    request(url, (error, response, body) => {
-      if (error) {
-        console.error('Error:', error);
-        return;
-      }
-
-      if (response.statusCode !== 200) {
-        console.error('Error:', body);
-        return;
-      }
-
-      const characterData = JSON.parse(body);
+    for (const url of charactersUrls) {
+      const characterData = await fetchCharacterData(url);
       console.log(characterData.name);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+})();
+
+function fetchFilmData(url) {
+  return new Promise((resolve, reject) => {
+    request(url, (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        reject(error || body);
+        return;
+      }
+      resolve(JSON.parse(body));
     });
   });
-});
+}
+
+function fetchCharacterData(url) {
+  return new Promise((resolve, reject) => {
+    request(url, (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        reject(error || body);
+        return;
+      }
+      resolve(JSON.parse(body));
+    });
+  });
+}
