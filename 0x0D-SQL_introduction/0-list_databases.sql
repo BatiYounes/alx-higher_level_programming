@@ -1,2 +1,2 @@
---Adding a command to show all databases
+-- Adding a command to show all databases
 SHOW DATABASES
