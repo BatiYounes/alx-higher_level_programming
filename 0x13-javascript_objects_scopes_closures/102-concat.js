@@ -2,28 +2,20 @@
 
 const fs = require('fs');
 
-// Check if the correct number of arguments is provided
 if (process.argv.length !== 5) {
-  console.error('Usage: ./102-concat.js fileA fileB fileC');
+  console.error('Usage: ./102-concat.js <fileA> <fileB> <fileC>');
   process.exit(1);
 }
 
-// Extract file paths from command-line arguments
-const [,, fileA, fileB, fileC] = process.argv;
+const fileA = process.argv[2];
+const fileB = process.argv[3];
+const fileC = process.argv[4];
 
 try {
-  // Read the contents of fileA and fileB
-  const contentA = fs.readFileSync(fileA, 'utf8').trim();
-  const contentB = fs.readFileSync(fileB, 'utf8').trim();
-
-  // Concatenate the contents with a newline in between
-  const concatenatedContent = `${contentA}\n${contentB}\n`;
-
-  // Write the concatenated content to fileC
-  fs.writeFileSync(fileC, concatenatedContent);
-
-  console.log(`Concatenated ${fileA} and ${fileB} into ${fileC}`);
-} catch (error) {
-  console.error('Error:', error.message);
+  const dataA = fs.readFileSync(fileA, 'utf8');
+  const dataB = fs.readFileSync(fileB, 'utf8');
+  fs.writeFileSync(fileC, dataA + dataB);
+} catch (err) {
+  console.error('Error:', err.message);
   process.exit(1);
 }
