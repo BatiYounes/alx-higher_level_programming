@@ -12,7 +12,13 @@ if __name__ == "__main__":
     email = sys.argv[2]
 
     payload = {'email': email}
-    response = requests.post(url, data=payload)
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}  # Ensure correct headers
 
-    print(f"Your email is: {email}")
-    print(response.text.strip())
+    try:
+        response = requests.post(url, data=payload, headers=headers)
+
+        print(f"Your email is: {email}")
+        print(response.text.strip())  # Remove extra whitespace from response
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
