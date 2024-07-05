@@ -1,26 +1,39 @@
 #!/usr/bin/python3
 """
-Script that retrieves and prints the 10 most recent commits
-from a specified GitHub repository by a given owner.
-Uses the GitHub API.
-Uses requests and sys packages.
+Fetch and print the 10 most recent commits from a specified GitHub repository.
 """
 import requests
 import sys
 
-if __name__ == "__main__":
-    repo_name = sys.argv[1]
-    owner_name = sys.argv[2]
 
-    url = f"https://api.github.com/repos/{owner_name}/{repo_name}/commits"
-    params = {
-        'per_page': 10,
-    }
+def fetch_commits(repo, owner):
 
-    response = requests.get(url, params=params)
+    """
+    Fetch the 10 most recent commits from a specified GitHub repository.
+
+    Args:
+        repo (str): The repository name.
+        owner (str): The owner of the repository.
+
+    Returns:
+        list: A list of dictionaries containing commit SHAs and author names.
+    """
+    url = f'https://api.github.com/repos/{owner}/{repo}/commits'
+    response = requests.get(url)
     commits = response.json()
+    return commits[:10]
 
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: ./100-github_commits.py <repo> <owner>")
+        sys.exit(1)
+
+    repo = sys.argv[1]
+    owner = sys.argv[2]
+
+    commits = fetch_commits(repo, owner)
     for commit in commits:
-        sha = commit['sha']
-        author_name = commit['commit']['author']['name']
+        sha = commit.get('sha')
+        author_name = commit.get('commit', {}).get('author', {}).get('name')
         print(f"{sha}: {author_name}")
