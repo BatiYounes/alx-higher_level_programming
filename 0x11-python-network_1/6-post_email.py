@@ -1,24 +1,15 @@
 #!/usr/bin/python3
 """
-Script that sends a POST request to a URL with an email as a parameter.
-Uses requests and sys packages.
+Send a POST request to a specified URL with an email as a parameter and
+display the response body.
 """
-
 import requests
 import sys
 
 if __name__ == "__main__":
     url = sys.argv[1]
     email = sys.argv[2]
+    data = {'email': email}
 
-    payload = {'email': email}
-    headers = {'Content-Type': 'application/x-www-form-urlencoded'}  # Ensure correct headers
-
-    try:
-        response = requests.post(url, data=payload, headers=headers)
-
-        print(f"Your email is: {email}")
-        print(response.text.strip())  # Remove extra whitespace from response
-
-    except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
+    response = requests.post(url, data=data)
+    print(response.text)
