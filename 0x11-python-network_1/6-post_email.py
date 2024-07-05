@@ -15,4 +15,4 @@ if __name__ == "__main__":
     response = requests.post(url, data=payload)
 
     print(f"Your email is: {email}")
-    print(response.text)
+    print(response.text.strip())
