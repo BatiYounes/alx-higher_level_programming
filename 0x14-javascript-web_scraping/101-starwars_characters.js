@@ -16,7 +16,7 @@ request(apiUrl, function (error, response, body) {
   printCharactersInOrder(characters, 0);
 });
 
-function printCharactersInOrder(characters, index) {
+function printCharactersInOrder (characters, index) {
   if (index >= characters.length) {
     return;
   }
