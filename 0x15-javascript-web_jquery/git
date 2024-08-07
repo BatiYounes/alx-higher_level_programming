@@ -1,0 +1,5 @@
+git add .
+
+git commit -m "adding the necessary files to the repo 0x15 Javascript web Jquery"
+
+git push origin
